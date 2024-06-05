@@ -30,18 +30,6 @@
 			<version>1.5.12</version>
 		</dependency>
 
-		<!-- Uncomment when interfaceOnly flag is disabled in OpenAPI config -->
-<!--		<dependency>-->
-<!--			<groupId>io.springfox</groupId>-->
-<!--			<artifactId>springfox-swagger-ui</artifactId>-->
-<!--			<version>2.6.0</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>io.springfox</groupId>-->
-<!--			<artifactId>springfox-swagger2</artifactId>-->
-<!--			<version>2.6.0</version>-->
-<!--		</dependency>-->
-
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-annotations</artifactId>
@@ -63,6 +51,24 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>0.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305</artifactId>
+			<version>3.0.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -70,6 +76,45 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>7.1.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>
+								${project.basedir}/src/main/resources/static/your-OpenAPI-file.json
+							</inputSpec>
+							<apiPackage>${project.groupId}.the-package-where-you-wanna-generate-the-code</apiPackage>
+							<modelPackage>${project.groupId}.the-package-where-you-wanna-generate-the-code.model</modelPackage>
+							<invokerPackage>${project.groupId}.the-package-where-you-wanna-generate-the-code.invoker</invokerPackage>
+
+							<generatorName>java</generatorName>
+							<library>resttemplate</library>
+
+							<configOptions>
+								<dateLibrary>java8</dateLibrary>
+								<openApiNullable>false</openApiNullable>
+								<performBeanValidation>false</performBeanValidation>
+								<useBeanValidation>false</useBeanValidation>
+								<openApiNullable>false</openApiNullable>
+								<java8>true</java8>
+								<importMappings>Nullable=</importMappings>
+							</configOptions>
+
+							<generateApis>true</generateApis>
+							<generateApiTests>false</generateApiTests>
+							<generateModelTests>false</generateModelTests>
+							<generateModelDocumentation>false</generateModelDocumentation>
+							<generateApiDocumentation>false</generateApiDocumentation>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
