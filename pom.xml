@@ -16,6 +16,12 @@
 
 	<properties>
 		<java.version>17</java.version>
+		<!-- Path to the OpenAPI specification file used for code generation -->
+		<openapi.source.file>static/your-OpenAPI-file.json</openapi.source.file>
+		<!-- Group ID of the project for which the code will be generated -->
+		<project.groupId.toGenerateCodeFor>mo.project.group</project.groupId.toGenerateCodeFor>
+		<!-- Target package where you want to generate the code -->
+		<the.package.where.you.wanna.generate.the.code>the-package-where-you-wanna-generate-the-code</the.package.where.you.wanna.generate.the.code>
 	</properties>
 
 	<dependencies>
@@ -88,11 +94,11 @@
 						</goals>
 						<configuration>
 							<inputSpec>
-								${project.basedir}/src/main/resources/static/your-OpenAPI-file.json
+								${project.basedir}/src/main/resources/${openapi.source.file}
 							</inputSpec>
-							<apiPackage>${project.groupId}.the-package-where-you-wanna-generate-the-code</apiPackage>
-							<modelPackage>${project.groupId}.the-package-where-you-wanna-generate-the-code.model</modelPackage>
-							<invokerPackage>${project.groupId}.the-package-where-you-wanna-generate-the-code.invoker</invokerPackage>
+							<apiPackage>${project.groupId.toGenerateCodeFor}.consumer.rest.${the.package.where.you.wanna.generate.the.code}</apiPackage>
+							<modelPackage>${project.groupId.toGenerateCodeFor}.consumer.rest.${the.package.where.you.wanna.generate.the.code}.model</modelPackage>
+							<invokerPackage>${project.groupId.toGenerateCodeFor}.consumer.rest.${the.package.where.you.wanna.generate.the.code}.invoker</invokerPackage>
 
 							<generatorName>java</generatorName>
 							<library>resttemplate</library>
